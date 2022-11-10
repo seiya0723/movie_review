@@ -1,0 +1,49 @@
+{% extends "movie/base.html" %} {# base.htmlを継承する。extendsはloadよりも先に書く #}
+{% load static %}
+{# staticテンプレートタグを使えるようにloadする。このstaticテンプレートタグでSTATICFILES_DIRSで指定した静的ファイルを読み込むことができる #}
+
+{# 継承元のblockタグを使って書く。blockタグの外に書いても反映はされない#}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'movie/css/index.css' %}">
+<script src="{% static 'movie/js/index.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+<h2>作品一覧</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        {% for product in products %}
+        {# TODO: ここでpx-0を入れる。#}
+        <div class="col-md-4 col-lg-3 px-0">
+            {# TODO: border-radius margin を使って装飾を bootstrapによりaタグの中身が青色になるので、別途色つけを #}
+            <a class="product_content" href="{% url 'movie:product' product.id %}">
+                <h3 class="product_header">{{ product.title }}</h3>
+
+                <div class="jacket_image_area">
+                    {% if product.jacket %}
+                    <img src="{{ product.jacket.url }}" alt="">
+                    {% else %}
+                    <img src="{% static 'movie/image/noimage.jpg' %}" alt="">
+                    {% endif %}
+                </div>
+                <div>カテゴリ:{{ product.category.name }}</div>
+                <div>公開日:{{ product.release_date }}</div>
+            </a>
+
+            {% comment %}
+            <div class="text-right">
+                <a class="btn btn-outline-primary" href="{% url 'movie:product' product.id %}">詳細</a>
+            </div>
+            {% endcomment %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+

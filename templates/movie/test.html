@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hello World test!!</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
+    <!--styleタグはHTMLファイルの中にCSSを書くことができる
+    装飾をテストする時に使う。できれば別のCSSファイルを作って、それを読み込む方が、HTMLが見づらくならなくてすむ。
+    -->
+    <style>
+.color_area{
+    /* 要素をsolid(実線),太さ0.2rem(3.2pxで),色はblackで囲む */
+    border:solid 0.2rem black;
+}
+/*擬似クラス :hoverを使うと、.color_areaがマウスでホバーされた時の装飾を指定できる */
+.color_area:hover{
+    /* 背景色をオレンジにする */
+    background:orange;
+    color:red;
+}
+
+/* 擬似クラスを指定して、特定の状態になった時、任意の装飾を発動させる事ができる */
+#radio_1[type="radio"]:checked ~ .color_area{ background:blue; }
+</style>
+
+</head>
+<body>
+        <input id="radio_1" type="radio" name="test" value="1">:1
+        <input id="radio_2" type="radio" name="test" value="2">:2
+        <input id="radio_3" type="radio" name="test" value="3">:3
+        <input id="radio_4" type="radio" name="test" value="4">:4
+        <input id="radio_5" type="radio" name="test" value="5">:5
+
+        <div class="color_area">この部分の色が変わる</div>
+
+
+</body>
+</html>

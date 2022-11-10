@@ -1,0 +1,124 @@
+a{ color:inherit; }
+a:hover{ color:inherit }
+
+h1 {
+    /* 白っぽい背景には黒文字、黒っぽい背景には白文字 */
+    background:navy;
+    color:white;
+
+    /* remはhtmlタグのfont-size:16pxに起因する。1remで16px,0.5remで8px,1.5remは24px */
+    /* padding:0.5rem; */
+    /* padding:8px; */
+    /* 例えば、htmlタグのfont-size:20pxとなった時、8pxはそのまま、0.5remはfont-sizeに合わせて変わる */
+
+    font-size:2.5rem;
+    height:3rem;
+    /* ここでheightを3remに仕立てる */
+}
+h2 {
+    border-left:solid 0.5rem navy;
+    border-bottom:solid 0.2rem navy;
+
+    padding:0.5rem;
+
+    /*文字に影を入れる 2px 2px で右下方向へ影をつける 最後の2pxで影をぼかす gray色で影を作る*/
+    /* 例:背景を黒にして、0px 0pxで影を配置、2pxほどのぼかしで、明るめの色を設定すると、暗闇でひかるようなイメージになる */
+    /* 縁取りもできる https://noauto-nolife.com/post/css3-textborder/　*/
+    text-shadow: 2px 2px 2px gray;
+}
+a:hover {
+    text-decoration:none;
+}
+/* imgタグで表示される画像は、画像のそのままのサイズで表示されてしまう。CSS作成時からこの装飾は入れておいたほうがよい */
+img {
+    /* 親要素の横幅をimgタグの横幅の限度とする */
+    max-width:100%;
+}
+
+.header_content{
+    /* この要素の中の文字列を中央寄せにする */
+    text-align:center;
+    /* デフォルトはtext-align:left; 右寄せにしたい場合は text-align:right; */
+
+    padding:0.5rem;
+    /* paddingで領域を取る */
+    border:solid 1px navy;
+    /* 実線(solid)で囲む、二重線(double)や破線(dashed) 1pxの太さで、 色はnavyで */
+    border-radius:0.5rem;
+    /* 角を丸める */
+
+    /* 遅延描画(0.5秒) */
+    transition:0.5s;
+}
+/* .header_contentがホバーされた時(擬似クラスhover)*/
+.header_content:hover {
+    background:navy;
+    color:white;
+
+    /* 遅延描画(0.5秒) */
+    transition:0.5s;
+}
+.jacket_image_area{
+    border:solid 1px navy;
+    margin:0.5rem 0;
+
+    /* 子要素の画像を中央寄せにする */
+    text-align:center;
+
+    /* 親要素で高さを固定する */
+    height:6rem;
+    /* 注意:この場合、高さ6rem(16px*6) に満たない画像は引き伸ばされて表示される */
+}
+.jacket_image_area img{
+    /* 画像要素は高さをはみ出さないようにする */
+    height:100%;
+}
+
+/* product_area */
+
+/* TODO:作品のタイトルを必ず1行で表示させる */
+.product_header{
+    /* 改行しないで表示させる */
+    word-break:keep-all;
+
+    /* 記号が含まれる場合にも改行はしない */
+    white-space: nowrap;
+
+    /* X軸方向にはみ出した時、非表示とする。*/
+    overflow-X:hidden;
+}
+/* ただ、これだと正式名がきちんと表示されないので、なるべくBootstrapのカラムをきちんと設定しておく。*/
+/* TODO:タイトルを右から左へ動かして表示させるアニメーションを追加する */
+
+/* サイドバー */
+.sidebar_chk{
+    display:none;
+}
+.sidebar_label{
+    border:solid 1px black;
+    position:absolute;
+    top:0px;
+    left:300px;
+    writing-mode:vertical-rl;
+    cursor:pointer;
+    padding:2rem 0.5rem;
+    background:white;
+}
+.sidebar_area{
+    background:black;
+
+    position:fixed;
+    top:3rem;
+    left:-300px;
+    transition:0.2s;
+}
+.sidebar_content{
+    color:white;
+
+    width:300px;
+    height:100vh;
+}
+.sidebar_chk[type="checkbox"]:checked ~ .sidebar_area {
+    left:0;
+    transition:0.2s;
+}

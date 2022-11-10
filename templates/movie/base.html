@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>映画レビューサイト</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="{% static 'movie/css/base.css' %}">
+
+	{# blockタグの部分は、このbase.htmlを継承した各テンプレートで自由に書き換えても良い部分 #}
+    {% block extra_head %}
+    {% endblock %}
+
+</head>
+<body>
+
+
+    <h1>
+        <a class="text-white" href="{% url 'movie:index' %}">映画レビューサイト</a>
+    </h1>
+
+
+
+
+	<main class="container">
+        <div class="container-fluid my-2">
+            <div class="row">
+                <a class="col-6 col-md-3 header_content" href="{% url 'movie:ranking' %}"><i class="fa-solid fa-ranking-star"></i>ランキング</a>
+                <a class="col-6 col-md-3 header_content" href=""><i class="fa-solid fa-film"></i>今月公開の映画</a>
+                <a class="col-6 col-md-3 header_content" href=""><i class="fa-solid fa-circle-play"></i>上映中の映画</a>
+                <a class="col-6 col-md-3 header_content" href=""><i class="fa-regular fa-comments"></i>新着レビュー</a>
+            </div>
+        </div>
+		<form action="" method="get">
+			<div class="form-inline my-2">
+				映画公開日:
+				<input class="form-control" type="date" name="release_date_from" value="{{ request.GET.release_date_from }}"> ~
+				<input class="form-control" type="date" name="release_date_to" value="{{ request.GET.release_date_to }}">
+			</div>
+
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<select class="form-control" name="category">
+						<option value="">カテゴリ</option>
+						{% for category in categories %}
+						<option value="{{ category.id }}" {% if request.GET.category == category.str_id %}selected{% endif %}>{{ category.name }}</option> {# TODO:ここにrequest.GET.categoryと合致する場合はselected属性を付与する #}
+						{% endfor %}
+					</select>
+				</div>
+				<input class="form-control" type="text" name="search" placeholder="作品名を入力" value="{{ request.GET.search }}">
+				<div class="input-group-append">
+					<input class="form-control btn btn-outline-primary" type="submit" value="検索">
+				</div>
+			</div>
+		</form>
+
+		{# blockタグの部分は、このbase.htmlを継承した各テンプレートで自由に書き換えても良い部分 #}
+        {% block main %}
+        {% endblock %}
+
+
+	<input id="sidebar_chk" class="sidebar_chk" type="checkbox">
+	<div class="sidebar_area">
+		<div class="sidebar_content">
+			サイドバーエリア
+		</div>
+		<label class="sidebar_label" for="sidebar_chk">MENU</label>
+	</div>
+
+
+
+	</main>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% extends "movie/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'movie/css/ranking.css' %}">
+{% endblock %}
+
+
+{% block main %}
+
+
+{# TODO:後はここにランキングの装飾をする #}
+<div class="container-fluid">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 col-lg-3 px-0">
+            <a class="product_content" href="{% url 'movie:product' product.id %}">
+                <h3 class="product_header">{{ product.title }}</h3>
+
+                <div class="jacket_image_area">
+                    {% if product.jacket %}
+                    <img src="{{ product.jacket.url }}" alt="">
+                    {% else %}
+                    <img src="{% static 'movie/image/noimage.jpg' %}" alt="">
+                    {% endif %}
+                </div>
+                <div>カテゴリ:{{ product.category.name }}</div>
+                <div>公開日:{{ product.release_date }}</div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+

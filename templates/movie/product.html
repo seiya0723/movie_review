@@ -1,0 +1,170 @@
+{% extends "movie/base.html" %}
+
+{% load static %}
+
+{# TODO:index.htmlと重複している部分が多いため、テンプレートの継承を使って共通箇所をひとまとめにする。#}
+{# https://noauto-nolife.com/post/django-templates-extends-and-block/ #}
+
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'movie/css/product.css' %}">
+<script src="{% static 'movie/js/index.js' %}"></script>
+{% endblock %}
+
+
+{% block main %}
+
+{% if product %}
+<div class="border">
+    <div>{{ product.title }}</div>
+    <div>{{ product.category.name }}</div>
+</div>
+{% else %}
+<div>その作品はありません</div>
+{% endif %}
+
+
+<h2>レビューを投稿する</h2>
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    {# ★のレビューフォームをコピペする #}
+    {# https://noauto-nolife.com/post/css3-star-review-radio/ #}
+
+
+
+    <input id="star_radio_1" type="radio" name="star" value="1">
+    <input id="star_radio_2" type="radio" name="star" value="2">
+    <input id="star_radio_3" type="radio" name="star" value="3">
+    <input id="star_radio_4" type="radio" name="star" value="4">
+    <input id="star_radio_5" type="radio" name="star" value="5">
+
+    <div class="star_radio_label_area">
+        <div class="star_radio_label_flex">
+            <label class="star_radio_label" for="star_radio_5"><div class="true_star" ><i class="fas fa-star"></i></div><div class="false_star"><i class="far fa-star"></i></div></label>
+            <label class="star_radio_label" for="star_radio_4"><div class="true_star" ><i class="fas fa-star"></i></div><div class="false_star"><i class="far fa-star"></i></div></label>
+            <label class="star_radio_label" for="star_radio_3"><div class="true_star" ><i class="fas fa-star"></i></div><div class="false_star"><i class="far fa-star"></i></div></label>
+            <label class="star_radio_label" for="star_radio_2"><div class="true_star" ><i class="fas fa-star"></i></div><div class="false_star"><i class="far fa-star"></i></div></label>
+            <label class="star_radio_label" for="star_radio_1"><div class="true_star" ><i class="fas fa-star"></i></div><div class="false_star"><i class="far fa-star"></i></div></label>
+        </div>
+    </div>
+
+
+
+    <label><input type="checkbox" name="spoiler">:ネタバレあり</label>
+    <textarea class="form-control" name="comment"></textarea>
+    <input class="btn btn-outline-success" type="submit" value="レビュー送信">
+</form>
+
+<h2>レビュー一覧</h2>
+
+{% for review in reviews %}
+<div class="border">
+    <div>{{ review.dt }}</div>
+    <div>{{ review.comment }}</div>
+
+    {# TODO:ここで星の数だけループを行う　#}
+</div>
+{% endfor %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hello World test!!</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="{% static 'movie/css/product.css' %}">
+    <script src="{% static 'movie/js/index.js' %}"></script>
+
+</head>
+<body>
+    
+    <h1 class="bg-success">
+        <a class="text-white" href="{% url 'movie:index' %}">映画レビューサイト</a>
+    </h1>
+
+    <main class="container">
+
+        {% if product %}
+        <div class="border">
+            <div>{{ product.title }}</div>
+            <div>{{ product.category.name }}</div>
+        </div>
+        {% else %}
+        <div>その作品はありません</div>
+        {% endif %}
+
+
+        <h2>レビューを投稿する</h2>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            {# ★のレビューフォームをコピペする #}
+            {# https://noauto-nolife.com/post/css3-star-review-radio/ #}
+
+
+
+            <input id="star_radio_1" type="radio" name="star" value="1">
+            <input id="star_radio_2" type="radio" name="star" value="2">
+            <input id="star_radio_3" type="radio" name="star" value="3">
+            <input id="star_radio_4" type="radio" name="star" value="4">
+            <input id="star_radio_5" type="radio" name="star" value="5">
+
+            <div class="star_radio_label_area">
+                <div class="star_radio_label_flex">
+                    <label class="star_radio_label" for="star_radio_5"><div class="true_star" ><i class="fas fa-star"></i></div><div class="false_star"><i class="far fa-star"></i></div></label>
+                    <label class="star_radio_label" for="star_radio_4"><div class="true_star" ><i class="fas fa-star"></i></div><div class="false_star"><i class="far fa-star"></i></div></label>
+                    <label class="star_radio_label" for="star_radio_3"><div class="true_star" ><i class="fas fa-star"></i></div><div class="false_star"><i class="far fa-star"></i></div></label>
+                    <label class="star_radio_label" for="star_radio_2"><div class="true_star" ><i class="fas fa-star"></i></div><div class="false_star"><i class="far fa-star"></i></div></label>
+                    <label class="star_radio_label" for="star_radio_1"><div class="true_star" ><i class="fas fa-star"></i></div><div class="false_star"><i class="far fa-star"></i></div></label>
+                </div>
+            </div>
+
+
+
+            <label><input type="checkbox" name="spoiler">:ネタバレあり</label>
+            <textarea class="form-control" name="comment"></textarea>
+            <input class="btn btn-outline-success" type="submit" value="レビュー送信">
+        </form>
+
+        <h2>レビュー一覧</h2>
+
+        {% for review in reviews %}
+        <div class="border">
+            <div>{{ review.dt }}</div>
+            <div>{{ review.comment }}</div>
+
+            {# TODO:ここで星の数だけループを行う　#}
+        </div>
+        {% endfor %}
+
+    </main>
+
+</body>
+</html>
+{% endcomment %}
+
