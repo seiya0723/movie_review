@@ -14,7 +14,9 @@
 <div class="container-fluid">
     <div class="row">
         {% for product in products %}
-        {# TODO: ここでpx-0を入れる。#}
+        {# TODO: ここでpx-0を入れる。pはpaddingのp xは横方向のx -0 0px取る。#}
+        {# ちなみにmarginで縦方向に対して0px取る場合、 my-0 となる margin(m) y方向(y) で0(-0) #}
+        {# 大きさの指定として、0~5の6段階で指定できる 横方向にmarginを3rem取りたい場合は、mx-5 #}
         <div class="col-md-4 col-lg-3 px-0">
             {# TODO: border-radius margin を使って装飾を bootstrapによりaタグの中身が青色になるので、別途色つけを #}
             <a class="product_content" href="{% url 'movie:product' product.id %}">

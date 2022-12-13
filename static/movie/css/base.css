@@ -108,6 +108,7 @@ img {
     background:black;
 
     position:fixed;
+    /* タイトルの高さに合わせる */
     top:3rem;
     left:-300px;
     transition:0.2s;
@@ -122,3 +123,14 @@ img {
     left:0;
     transition:0.2s;
 }
+
+/* TODO:CSSの後出し有利の法則 */
+/* 同じプロパティが後に書かれていれば、後に書いたプロパティを優先する */
+/* 例外として、!importantは 後から同じプロパティが書かれていたとしても先に書いてある!importantを最優先にする */
+/*
+.product_content{
+    padding: 50rem;
+    padding: 50rem !important;
+    background:orange;
+}
+*/

@@ -158,24 +158,21 @@ class ProductView(View):
 product = ProductView.as_view()
 
 
+#ランキング用のビュー
 class RankingView(View):
-
     def get(self, request, *args, **kwargs):
-
         context             = {}
 
         #レビュー数に応じて、ランキングを作る(filterで日時を指定したほうがよいかも)
+        #TIPS:ここでfilterを使って映画の公開日で絞り込みをかけないと、レビュー数が多い昔の映画がいつまでもランキングの上位に居続ける。
         products            = Product.objects.all()
 
         #前もってメソッド実行用のoperatorを用意する
         import operator
-
         #sorted関数で productsをループし、operatorを使ってamount_reviewを実行して並び替える
         context["products"] = sorted(products, key=operator.methodcaller('amount_review'), reverse=True)
-
         #モデルメソッドを使用してランキングを作る
         #https://noauto-nolife.com/post/django-attr-method-sort/
-
 
         return render(request, "movie/ranking.html", context)
 

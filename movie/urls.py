@@ -13,9 +13,7 @@ urlpatterns = [
     path("product/<int:pk>/", views.product, name="product"),
     #product/2/ product/5/
 
-
     path("ranking/", views.ranking, name="ranking"),
-
 ]
 
 
